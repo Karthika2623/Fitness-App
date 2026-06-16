@@ -22,13 +22,23 @@ class AppBinding extends Bindings {
       ),
       permanent: true,
     );
+    Get.put(
+      StepController(),
+      permanent: true,
+    );
+    Get.put(
+      AuthController(),
+      permanent: true,
+    );
 
-    Get.put(AuthController());
+    Get.put(
+      FoodController(),
+      permanent: true,
+    );
 
-    Get.put(StepController());
-
-    Get.put(FoodController());
-
-    Get.put(DashboardController());
+    Get.put(
+      DashboardController(),
+      permanent: true,
+    );
   }
 }

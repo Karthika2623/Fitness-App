@@ -33,56 +33,63 @@ class HistoryView extends StatelessWidget {
 
           child: BarChart(
 
-            BarChartData(
+              BarChartData(
+                maxY: 15000,
 
-              maxY: 15000,
+                borderData: FlBorderData(show: false),
 
-              extraLinesData:
-              ExtraLinesData(
+                gridData: FlGridData(show: true),
 
-                horizontalLines: [
+                titlesData: FlTitlesData(
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (value, meta) {
 
-                  HorizontalLine(
+                        const days = [
+                          "M",
+                          "T",
+                          "W",
+                          "T",
+                          "F",
+                          "S",
+                          "S",
+                        ];
 
-                    y: 10000,
+                        if(value.toInt() >= days.length){
+                          return const SizedBox();
+                        }
 
-                    strokeWidth: 2,
+                        return Text(days[value.toInt()]);
+                      },
+                    ),
+                  ),
+                ),
 
-                    color:
-                    Colors.red,
-                  )
-                ],
-              ),
+                barGroups: List.generate(
+                  controller.history.length,
+                      (index) {
 
-              barGroups:
+                    return BarChartGroupData(
+                      x: index,
 
-              List.generate(
+                      barRods: [
 
-                controller
-                    .history.length,
+                        BarChartRodData(
+                          toY: controller.history[index]
+                              .steps
+                              .toDouble(),
 
-                    (index) {
+                          width: 20,
 
-                  return BarChartGroupData(
-
-                    x: index,
-
-                    barRods: [
-
-                      BarChartRodData(
-
-                        toY: controller
-                            .history[index]
-                            .steps
-                            .toDouble(),
-
-                        width: 18,
-                      )
-                    ],
-                  );
-                },
-              ),
-            ),
+                          borderRadius:
+                          BorderRadius.circular(8),
+                        )
+                      ],
+                    );
+                  },
+                ),
+              )
           ),
         );
       }),
